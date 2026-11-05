@@ -14,7 +14,7 @@ export type OtpPurpose = "LOGIN" | "REAUTH" | "REGISTRATION" | "SCANNER_VERIFY" 
 export interface OtpRequestResult {
   expiresInSeconds: number;
   resendAfterSeconds: number;
-  /** Dev-only: returned when SMS_PROVIDER=mock so the flow is testable. */
+  /** Dev mock: returned when SMS_PROVIDER=mock so the flow is testable without SMS integration. */
   devCode?: string;
 }
 
@@ -58,7 +58,7 @@ export const requestOtp = async (input: {
     data: { codeHash: hashCode(challenge.id, code) },
   });
 
-  const isDev = env.NODE_ENV !== "production" && env.SMS_PROVIDER === "mock";
+  const isMock = env.SMS_PROVIDER === "mock";
   await smsProvider.send({
     to: phone,
     body: `${env.APP_NAME} verification code: ${code}. Valid for ${Math.floor(env.OTP_TTL_SECONDS / 60)} minutes. Do not share it with anyone.`,
@@ -71,7 +71,7 @@ export const requestOtp = async (input: {
   return {
     expiresInSeconds: env.OTP_TTL_SECONDS,
     resendAfterSeconds: 60,
-    ...(isDev ? { devCode: code } : {}),
+    ...(isMock ? { devCode: code } : {}),
   };
 };
 
