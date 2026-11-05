@@ -85,7 +85,7 @@ communicationRouter.post(
 // ---------------------------------------------------------------------------
 
 export const scannerChatRouter = Router();
-scannerChatRouter.use(scannerLimiter());
+scannerChatRouter.use(scannerLimiter);
 
 const scannerSessionToken = (req: Request): string => {
   const token = req.header("x-scanner-session");

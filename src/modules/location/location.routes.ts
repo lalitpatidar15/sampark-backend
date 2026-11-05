@@ -68,7 +68,7 @@ locationRouter.post(
 // ---------------------------------------------------------------------------
 
 export const scannerLocationRouter = Router();
-scannerLocationRouter.use(scannerLimiter());
+scannerLocationRouter.use(scannerLimiter);
 
 scannerLocationRouter.post(
   "/request",
@@ -84,7 +84,7 @@ scannerLocationRouter.post(
 // ---------------------------------------------------------------------------
 
 export const publicLocationRouter = Router();
-publicLocationRouter.use(scannerLimiter());
+publicLocationRouter.use(scannerLimiter);
 
 publicLocationRouter.get(
   "/:publicShareId",

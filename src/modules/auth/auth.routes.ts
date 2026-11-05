@@ -32,7 +32,7 @@ export const authRouter = Router();
 
 authRouter.post(
   "/otp/request",
-  otpLimiter(),
+  otpLimiter,
   validate(requestOtpSchema),
   asyncHandler(async (req, res) => {
     const { phone, purpose } = req.body as z.infer<typeof requestOtpSchema>;
@@ -43,7 +43,7 @@ authRouter.post(
 
 authRouter.post(
   "/login",
-  otpLimiter(),
+  otpLimiter,
   validate(loginSchema),
   asyncHandler(async (req, res) => {
     const { phone, code } = req.body as z.infer<typeof loginSchema>;
@@ -94,7 +94,7 @@ authRouter.get(
 
 authRouter.post(
   "/reauth/request",
-  otpLimiter(),
+  otpLimiter,
   validate(z.object({ phone: phoneSchema })),
   asyncHandler(async (req, res) => {
     const { phone } = req.body as { phone: string };
@@ -104,7 +104,7 @@ authRouter.post(
 
 authRouter.post(
   "/reauth/verify",
-  otpLimiter(),
+  otpLimiter,
   authenticate,
   validate(reauthSchema),
   asyncHandler(async (req, res) => {

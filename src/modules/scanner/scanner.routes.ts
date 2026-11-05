@@ -27,7 +27,7 @@ const verifySchema = sessionBodySchema.extend({
 export const scannerRouter = Router();
 
 // Every public scanner operation is rate limited (spec 32.2).
-scannerRouter.use(scannerLimiter());
+scannerRouter.use(scannerLimiter);
 
 /**
  * STEP 1 — the visitor scans. No account, no app, no OTP for a low-risk read.

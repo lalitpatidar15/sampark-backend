@@ -1,0 +1,51 @@
+services:
+  - type: web
+    name: sampark-backend
+    env: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "4000"
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: FIELD_ENCRYPTION_KEY
+        generateValue: true
+      - key: LOOKUP_HMAC_KEY
+        generateValue: true
+      - key: OTP_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: https://sampark-admin.vercel.app,https://sampark-scanner.vercel.app
+      - key: API_BASE_URL
+        value: https://sampark-backend.onrender.com
+      - key: WEB_BASE_URL
+        value: https://sampark-scanner.vercel.app
+      - key: ADMIN_BASE_URL
+        value: https://sampark-admin.vercel.app
+      - key: VOICE_PROVIDER
+        value: twilio
+      - key: SMS_PROVIDER
+        value: twilio
+      - key: WHATSAPP_PROVIDER
+        value: meta
+      - key: EMAIL_PROVIDER
+        value: resend
+      - key: PUSH_PROVIDER
+        value: fcm
+      - key: PAYMENT_PROVIDER
+        value: razorpay
+      - key: LOG_LEVEL
+        value: info

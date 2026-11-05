@@ -60,7 +60,7 @@ export const createApp = (): Express => {
     res.json({ status: "ok", service: "sampark-backend", env: env.NODE_ENV, time: new Date().toISOString() });
   });
 
-  app.use("/api", apiLimiter());
+  app.use("/api", apiLimiter);
   app.use("/api", registerRoutes());
 
   app.use(notFoundHandler);
