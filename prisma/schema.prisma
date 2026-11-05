@@ -852,7 +852,8 @@ model OrderItem {
   total       Int
 
   order   Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  product Product?   @relation(fields: [productId], references: [id], onDelete: SetNull)
+  product Product?   @relation("orderItemProduct", fields: [productId], references: [id], onDelete: SetNull)
+  physicalTag PhysicalTag?
 
   @@index([orderId])
   @@index([productId])
